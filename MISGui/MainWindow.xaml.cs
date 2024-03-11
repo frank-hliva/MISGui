@@ -46,7 +46,6 @@ namespace MISGui
         {
             try
             {
-                var mainUrl = new Uri(Url.Text);
                 save("Locations", "mainUrl", Url.Text);
                 save("Window", "x", this.Left.ToString());
                 save("Window", "y", this.Top.ToString());
