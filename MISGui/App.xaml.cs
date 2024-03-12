@@ -18,8 +18,8 @@ namespace MISGui
         {
             base.OnStartup(e);
             var appContext = new App.Context();
-            var windowStorage = new RegistryStorage(appContext, "Window");
-            var locationsStorage = new RegistryStorage(appContext, "Locations");
+            var windowStorage = new RegistryStorage(appContext, defaultStore: "Window");
+            var locationsStorage = new RegistryStorage(appContext, defaultStore: "Locations");
             var window = new MainWindow(appContext, windowStorage, locationsStorage);
             window.Show();
         }

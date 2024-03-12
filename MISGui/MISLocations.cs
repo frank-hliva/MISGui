@@ -23,6 +23,10 @@ namespace MISGui
             LHCommand = ToLHCommand(sourceUrl);
         }
 
+        public MISLocations(string sourceUrl) : this(new Uri(sourceUrl))
+        {
+        }
+
         private Uri ToLocalhostPath(Uri mainUrl)
         {
             return new Uri($"{LocalhostRoot}{mainUrl.PathAndQuery}");

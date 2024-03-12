@@ -68,7 +68,7 @@ namespace MISGui
             var textBox = sender as TextBox;
             try
             {
-                var misLocations = new MISLocations(new Uri(textBox.Text));
+                var misLocations = new MISLocations(sourceUrl: textBox.Text);
                 LocalhostTextBox.Text = misLocations.Localhost.ToString();
                 SpaceTextBox.Text = misLocations.Space.ToString();
                 LHTextBox.Text = misLocations.LHCommand;
