@@ -2,8 +2,8 @@
 {
     public interface IBasicStorage
     {
-        string Read(string key);
+        string GetValue(string key);
+        void SetValue(string key, string value);
         RegistryStorage With(string defaultStore);
-        void Write(string key, string value);
     }
 }

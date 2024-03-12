@@ -33,13 +33,13 @@ namespace MISGui
             this.windowStorage = windowStorage;
             this.locationsStorage = locationsStorage;
 
-            UrlTextBox.Text = locationsStorage.Read("mainUrl");
-            var stayOnTop = windowStorage.Read("stayOnTop");
-            StayOnTopCheckBox.IsChecked = Topmost = (stayOnTop == "" ? true : stayOnTop == "1");
+            UrlTextBox.Text = locationsStorage.GetValue("mainUrl");
+            var stayOnTop = windowStorage.GetValue("stayOnTop");
+            StayOnTopCheckBox.IsChecked = Topmost = (stayOnTop == "" ? true : stayOnTop == "y");
             try
             {
-                Left = Double.Parse(windowStorage.Read("x"));
-                Top = Double.Parse(windowStorage.Read("y"));
+                Left = Double.Parse(windowStorage.GetValue("x"));
+                Top = Double.Parse(windowStorage.GetValue("y"));
             }
             catch (Exception ex)
             {
@@ -51,10 +51,10 @@ namespace MISGui
         {
             try
             {
-                locationsStorage.Write("mainUrl", UrlTextBox.Text);
-                windowStorage.Write("x", this.Left.ToString());
-                windowStorage.Write("y", this.Top.ToString());
-                windowStorage.Write("stayOnTop", StayOnTopCheckBox.IsChecked.Value ? "1" : "0");
+                locationsStorage.SetValue("mainUrl", UrlTextBox.Text);
+                windowStorage.SetValue("x", this.Left.ToString());
+                windowStorage.SetValue("y", this.Top.ToString());
+                windowStorage.SetValue("stayOnTop", StayOnTopCheckBox.IsChecked.Value ? "y" : "n");
             }
             catch (Exception ex)
             {

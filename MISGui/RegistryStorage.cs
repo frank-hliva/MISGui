@@ -26,12 +26,17 @@ namespace MISGui
             return new RegistryStorage(appName, defaultStore);
         }
 
-        public string Read(string key)
+        public string GetValue(string key)
         {
-            return Read(defaultStore, key);
+            return ReadFromRegistry(defaultStore, key);
         }
 
-        private string Read(string store, string key)
+        public void SetValue(string key, string value)
+        {
+            WriteToRegistry(defaultStore, key, value);
+        }
+
+        private string ReadFromRegistry(string store, string key)
         {
             object value = "";
             var appKey = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{appName}");
@@ -48,12 +53,7 @@ namespace MISGui
             return (string)value;
         }
 
-        public void Write(string key, string value)
-        {
-            Write(defaultStore, key, value);
-        }
-
-        private void Write(string store, string key, string value)
+        private void WriteToRegistry(string store, string key, string value)
         {
             var appKey = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{appName}");
             var valueKey = appKey.CreateSubKey(store);
