@@ -6,24 +6,68 @@
         xmlns:local="clr-namespace:MISGui"
         mc:Ignorable="d"
         Title="MIS GUI Helper" Height="290" Width="799" Background="#eeeeee" ResizeMode="NoResize" Closing="Window_Closing" Topmost="True">
+    <Window.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Height" Value="27"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,2"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="397*"/>
-            <ColumnDefinition Width="363*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
-        <TextBox VerticalContentAlignment="Center" x:Name="Url" Height="25" HorizontalAlignment="Left" Margin="115,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="578" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
-        <TextBox VerticalContentAlignment="Center" x:Name="Localhost" Height="25" HorizontalAlignment="Left" Margin="115,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
-        <Label Content="Url" HorizontalAlignment="Left" Margin="37,68,0,0" VerticalAlignment="Top"/>
-        <Label Content="Localhost" HorizontalAlignment="Left" Margin="35,98,0,0" VerticalAlignment="Top"/>
-        <TextBox VerticalContentAlignment="Center" x:Name="Space" Height="25" HorizontalAlignment="Left" Margin="115,127,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
-        <Label Content="LH" HorizontalAlignment="Left" Margin="34,157,0,0" VerticalAlignment="Top"/>
-        <TextBox VerticalContentAlignment="Center" x:Name="LH" Height="25" HorizontalAlignment="Left" Margin="115,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="578" Grid.ColumnSpan="2"/>
-        <Label Content="Space" HorizontalAlignment="Left" Margin="35,129,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="StayOnTopCheckBox" Content="Stay on top" HorizontalAlignment="Left" Margin="41,27,0,0" VerticalAlignment="Top" Click="StayOnTopCheckBox_Click" />
-        <Button x:Name="UrlOpenButton" Grid.Column="1" Content="Open" HorizontalAlignment="Left" Margin="288,68,0,0" Padding="10,2" VerticalAlignment="Top" Click="UrlOpenButton_Click" />
-        <Button x:Name="LocalhostOpenButton" Grid.Column="1" Content="Open" HorizontalAlignment="Left" Margin="289,98,0,0" Padding="10,2" VerticalAlignment="Top" Click="LocalhostOpenButton_Click" />
-        <Button x:Name="SpaceOpenButton" Grid.Column="1" Content="Open" HorizontalAlignment="Left" Margin="289,128,0,0" Padding="10,2" VerticalAlignment="Top" Click="SpaceOpenButton_Click" />
-        <Button x:Name="CopyLH" Grid.Column="1" Content="Copy" HorizontalAlignment="Left" Margin="289,158,0,0" Padding="10,2" VerticalAlignment="Top" Click="CopyLH_Click" />
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0,0,10,0"/>
+            </Style>
+            
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="10,2"/>
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Height" Value="27"/>
+            </Style>
+        </Grid.Resources>
 
+        <CheckBox x:Name="StayOnTopCheckBox" Content="Stay on top" Click="StayOnTopCheckBox_Click" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0"/>
+
+        <Label Content="Url" Grid.Row="1"/>
+        <TextBox x:Name="UrlTextBox" TextChanged="UrlTextBox_TextChanged" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="UrlOpenButton" Content="Open" Click="UrlOpenButton_Click" Grid.Column="2" Grid.Row="1" />
+
+        <Label Content="Localhost" Grid.Row="2"/>
+        <TextBox x:Name="LocalhostTextBox" Grid.Column="1" Grid.Row="2"/>
+        <Button x:Name="LocalhostOpenButton" Content="Open" Click="LocalhostOpenButton_Click" Grid.Column="2" Grid.Row="2"/>
+
+        <Label Content="Space" Grid.Row="3"/>
+        <TextBox x:Name="SpaceTextBox" Grid.Column="1" Grid.Row="3"/>
+        <Button x:Name="SpaceOpenButton" Content="Open" Click="SpaceOpenButton_Click" Grid.Column="2" Grid.Row="3"/>
+
+        <Label Content="LH" Grid.Row="4"/>
+        <TextBox x:Name="LHTextBox" Grid.Column="1" Grid.Row="4"/>
+        <Button x:Name="CopyLocalCommandButton" Content="Copy" Click="CopyLocalCommandButton_Click" Grid.Column="2" Grid.Row="4"/>
     </Grid>
 </Window>

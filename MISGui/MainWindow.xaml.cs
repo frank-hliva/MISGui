@@ -22,16 +22,24 @@ namespace MISGui
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly App.Context appContext;
+        private readonly IBasicStorage windowStorage;
+        private readonly IBasicStorage locationsStorage;
+
+        public MainWindow(App.Context appContext, IBasicStorage windowStorage, IBasicStorage locationsStorage)
         {
             InitializeComponent();
-            Url.Text = load("Locations", "mainUrl");
-            var stayOnTop = load("Window", "stayOnTop");
+            this.appContext = appContext;
+            this.windowStorage = windowStorage;
+            this.locationsStorage = locationsStorage;
+
+            UrlTextBox.Text = locationsStorage.Read("mainUrl");
+            var stayOnTop = windowStorage.Read("stayOnTop");
             StayOnTopCheckBox.IsChecked = Topmost = (stayOnTop == "" ? true : stayOnTop == "1");
             try
             {
-                Left = Double.Parse(load("Window", "x"));
-                Top = Double.Parse(load("Window", "y"));
+                Left = Double.Parse(windowStorage.Read("x"));
+                Top = Double.Parse(windowStorage.Read("y"));
             }
             catch (Exception ex)
             {
@@ -39,17 +47,14 @@ namespace MISGui
             }
         }
 
-        private string appName = "MISGui";
-        private string localPath = "http://localhost:3000";
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                save("Locations", "mainUrl", Url.Text);
-                save("Window", "x", this.Left.ToString());
-                save("Window", "y", this.Top.ToString());
-                save("Window", "stayOnTop", StayOnTopCheckBox.IsChecked.Value ? "1" : "0");
+                locationsStorage.Write("mainUrl", UrlTextBox.Text);
+                windowStorage.Write("x", this.Left.ToString());
+                windowStorage.Write("y", this.Top.ToString());
+                windowStorage.Write("stayOnTop", StayOnTopCheckBox.IsChecked.Value ? "1" : "0");
             }
             catch (Exception ex)
             {
@@ -58,58 +63,32 @@ namespace MISGui
 
         private string getLocalhost(Uri mainUrl)
         {
-            return $"{localPath}{mainUrl.PathAndQuery}";
+            return $"{appContext.LocalhostPath}{mainUrl.PathAndQuery}";
         }
         private string getSpace(Uri localhostUrl)
         {
-            return $"{localPath}/ims/html2/admin/space.html";
+            return $"{appContext.LocalhostPath}/ims/html2/admin/space.html";
         }
         private string getLH(Uri mainUrl)
         {
             return $"npm run local-dev -- --url {mainUrl.Scheme}://{mainUrl.Host}{mainUrl.LocalPath} --reload";
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void UrlTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = sender as TextBox;
             try
             {
                 var mainUrl = new Uri(textBox.Text);
-                Localhost.Text = getLocalhost(mainUrl);
-                Space.Text = getSpace(new Uri(Localhost.Text));
-                LH.Text = getLH(mainUrl);
+                LocalhostTextBox.Text = getLocalhost(mainUrl);
+                SpaceTextBox.Text = getSpace(new Uri(LocalhostTextBox.Text));
+                LHTextBox.Text = getLH(mainUrl);
             } catch (Exception ex)
             {
-                Localhost.Text = "";
-                Space.Text = "";
-                LH.Text = "";
+                LocalhostTextBox.Text = "";
+                SpaceTextBox.Text = "";
+                LHTextBox.Text = "";
             }
-        }
-
-        public string load(string store, string key)
-        {
-            object value = "";
-            var appKey = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{appName}");
-            if (appKey != null)
-            {
-                var valueKey = appKey.OpenSubKey(store);
-                if (valueKey != null)
-                {
-                    value = valueKey.GetValue(key);
-                    valueKey.Close();
-                }
-                appKey.Close();
-            }
-            return (string)value;
-        }
-
-        public void save(string store, string key, string value)
-        {
-            var appKey = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{appName}");
-            var valueKey = appKey.CreateSubKey(store);
-            valueKey.SetValue(key, value);
-            valueKey.Close();
-            appKey.Close();
         }
 
         private void StayOnTopCheckBox_Click(object sender, RoutedEventArgs e)
@@ -124,31 +103,31 @@ namespace MISGui
 
         private void UrlOpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Url.Text != "")
+            if (UrlTextBox.Text != "")
             {
-                OpenInBrowser(Url.Text);
+                OpenInBrowser(UrlTextBox.Text);
             }
         }
 
         private void LocalhostOpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Localhost.Text != "")
+            if (LocalhostTextBox.Text != "")
             {
-                OpenInBrowser(Localhost.Text);
+                OpenInBrowser(LocalhostTextBox.Text);
             }
         }
 
         private void SpaceOpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Space.Text != "")
+            if (SpaceTextBox.Text != "")
             {
-                OpenInBrowser(Space.Text);
+                OpenInBrowser(SpaceTextBox.Text);
             }
         }
 
-        private void CopyLH_Click(object sender, RoutedEventArgs e)
+        private void CopyLocalCommandButton_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(LH.Text);
+            Clipboard.SetText(LHTextBox.Text);
         }
     }
 }
