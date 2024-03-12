@@ -12,7 +12,6 @@ namespace MISGui
         public class Context
         {
             public readonly string AppName = "MISGui";
-            public readonly string LocalhostPath = "http://localhost:3000";
         }
 
         protected override void OnStartup(StartupEventArgs e)

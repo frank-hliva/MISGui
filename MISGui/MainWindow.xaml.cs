@@ -61,28 +61,17 @@ namespace MISGui
             }
         }
 
-        private string getLocalhost(Uri mainUrl)
-        {
-            return $"{appContext.LocalhostPath}{mainUrl.PathAndQuery}";
-        }
-        private string getSpace(Uri localhostUrl)
-        {
-            return $"{appContext.LocalhostPath}/ims/html2/admin/space.html";
-        }
-        private string getLH(Uri mainUrl)
-        {
-            return $"npm run local-dev -- --url {mainUrl.Scheme}://{mainUrl.Host}{mainUrl.LocalPath} --reload";
-        }
+
 
         private void UrlTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = sender as TextBox;
             try
             {
-                var mainUrl = new Uri(textBox.Text);
-                LocalhostTextBox.Text = getLocalhost(mainUrl);
-                SpaceTextBox.Text = getSpace(new Uri(LocalhostTextBox.Text));
-                LHTextBox.Text = getLH(mainUrl);
+                var misLocations = new MISLocations(new Uri(textBox.Text));
+                LocalhostTextBox.Text = misLocations.Localhost.ToString();
+                SpaceTextBox.Text = misLocations.Space.ToString();
+                LHTextBox.Text = misLocations.LHCommand;
             } catch (Exception ex)
             {
                 LocalhostTextBox.Text = "";
