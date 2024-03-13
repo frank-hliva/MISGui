@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace MISGui
 {
@@ -37,7 +39,7 @@ namespace MISGui
         }
         private string ToLHCommand(Uri mainUrl)
         {
-            return $"npm run local-dev -- --url {mainUrl.Scheme}://{mainUrl.Host}{mainUrl.LocalPath} --reload";
+            return $"npm run local-dev -- --url {mainUrl.Scheme}{Uri.SchemeDelimiter}{mainUrl.Host}:{mainUrl.Port}{mainUrl.LocalPath} --reload";
         }
     }
 }

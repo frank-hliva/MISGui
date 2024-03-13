@@ -10,7 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="291707_path_social media_logo_communication_network_icon.ico" />
+    <ProjectReference Include="..\MIS\MIS.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\control_play_blue.png" />
+    <Resource Include="Images\control_stop_blue.png" />
   </ItemGroup>
 
 </Project>
