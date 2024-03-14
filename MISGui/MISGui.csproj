@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MIS\MIS.fsproj" />
+    <ProjectReference Include="..\MISLib\MISLib.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
