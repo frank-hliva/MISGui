@@ -9,6 +9,9 @@ type MISLocations(sourceUrl: Uri) =
     let toLocalhostUri (mainUrl : Uri) = 
         $"{localhostRoot}{mainUrl.PathAndQuery}" |> Uri
 
+    let toLocalhostWithoutQueryUri (mainUrl : Uri) = 
+        $"{localhostRoot}{mainUrl.LocalPath}" |> Uri
+
     let toSpaceUri localhostUrl = 
         $"{localhostRoot}/ims/html2/admin/space.html" |> Uri
 
@@ -17,6 +20,7 @@ type MISLocations(sourceUrl: Uri) =
 
     member locs.Source = sourceUrl
     member locs.Localhost = sourceUrl |> toLocalhostUri
+    member locs.LocalhostWithoutQuery = sourceUrl |> toLocalhostWithoutQueryUri
     member locs.Space = sourceUrl |> toSpaceUri
     member locs.RunLocalhostCommand = sourceUrl |> toRunLocalhostCommand
 

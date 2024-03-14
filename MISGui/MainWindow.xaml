@@ -101,7 +101,7 @@
         </ToggleButton>
 
         <Label Content="Command" Grid.Row="4"/>
-        <TextBox x:Name="LocalhostCommandTextBox" Grid.Column="1" Grid.Row="4"/>
+        <TextBox x:Name="LocalhostCommandTextBox" TextChanged="LocalhostCommandTextBox_TextChanged" Grid.Column="1" Grid.Row="4"/>
         <ToggleButton x:Name="StartLocalhostCommandButton" Click="StartLocalhostCommandButton_Click" Grid.Column="2" Grid.Row="4">
             <Image x:Name="StartLocalhostCommandIcon" Source="{StaticResource StartIcon}" Width="16" Height="16" />
         </ToggleButton>

@@ -174,6 +174,7 @@ namespace MISGui
             var isStartedWSL = IsStartedWSLCommand;
             StartLocalhostCommandIcon.Source = isStartedWSL ? STOP_ICON : START_ICON;
             StartLocalhostCommandButton.IsChecked = isStartedWSL;
+            StartLocalhostCommandButton.IsEnabled = LocalhostCommandTextBox.Text != String.Empty;
 
             isStartedWSL = isStartedWSL && localhostScriptRunning;
 
@@ -207,12 +208,18 @@ namespace MISGui
                         if (receivedData != null && endOfOutputRegex.Match(receivedData).Success)
                         {
                             UpdateWSLCommandStatus(localhostScriptRunning: true);
+                            Log("WSL localhost Started.", color: Brushes.White);
                         }
                     });
                 });
                 localhostWSLRunningCommand = wslCommand.Start();
             }
             UpdateWSLCommandStatus();
+        }
+
+        private void LocalhostCommandTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateWSLCommandStatus(LocalhostTextBox.IsEnabled);
         }
     }
 }
