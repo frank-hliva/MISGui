@@ -90,19 +90,18 @@
 
         <Label Content="Localhost" Grid.Row="2"/>
         <TextBox x:Name="LocalhostTextBox" Grid.Column="1" Grid.Row="2"/>
-        <ToggleButton x:Name="LocalhostOpenButton" Click="LocalhostOpenButton_Click" Grid.Column="2" Grid.Row="2">
-            <Image Source="{StaticResource StartIcon}" Width="16" Height="16" />
+        <ToggleButton x:Name="LocalhostOpenButton" Click="LocalhostOpenButton_Click" Grid.Column="2" Grid.Row="2" ToolTip="">
+            <Image x:Name="LocalhostOpenIcon" Source="{StaticResource StartIcon}" Width="16" Height="16" />
         </ToggleButton>
 
         <Label Content="Space" Grid.Row="3"/>
         <TextBox x:Name="SpaceTextBox" Grid.Column="1" Grid.Row="3"/>
         <ToggleButton x:Name="SpaceOpenButton" Click="SpaceOpenButton_Click" Grid.Column="2" Grid.Row="3">
-            <Image Source="{StaticResource StartIcon}" Width="16" Height="16" />
+            <Image x:Name="SpaceOpenIcon" Source="{StaticResource StartIcon}" Width="16" Height="16" />
         </ToggleButton>
 
         <Label Content="Command" Grid.Row="4"/>
         <TextBox x:Name="LocalhostCommandTextBox" Grid.Column="1" Grid.Row="4"/>
-        <ToggleButton Visibility="Hidden" x:Name="CopyLocalCommandButton" Content="Copy" Click="CopyLocalCommandButton_Click" Grid.Column="2" Grid.Row="4"/>
         <ToggleButton x:Name="StartLocalhostCommandButton" Click="StartLocalhostCommandButton_Click" Grid.Column="2" Grid.Row="4">
             <Image x:Name="StartLocalhostCommandIcon" Source="{StaticResource StartIcon}" Width="16" Height="16" />
         </ToggleButton>

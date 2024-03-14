@@ -18,6 +18,8 @@ using MIS;
 using System;
 using MIS.Utils;
 using System.Diagnostics.Tracing;
+using static Microsoft.FSharp.Core.ByRefKinds;
+using System.Text.RegularExpressions;
 
 namespace MISGui
 {
@@ -51,7 +53,7 @@ namespace MISGui
             UrlTextBox.Text = locationsStorage.GetValue("mainUrl");
             var stayOnTop = windowStorage.GetValue("stayOnTop");
             StayOnTopCheckBox.IsChecked = Topmost = (stayOnTop == "" ? true : stayOnTop == "y");
-            StartLocalhostCommandButton.IsChecked = false;
+            UpdateWSLCommandStatus();
             //StartLocalhostCommandButton.Content = START;
             try
             {
@@ -167,33 +169,50 @@ namespace MISGui
             }
         }
 
+        void UpdateWSLCommandStatus(bool localhostScriptRunning = false)
+        {
+            var isStartedWSL = IsStartedWSLCommand;
+            StartLocalhostCommandIcon.Source = isStartedWSL ? STOP_ICON : START_ICON;
+            StartLocalhostCommandButton.IsChecked = isStartedWSL;
+
+            isStartedWSL = isStartedWSL && localhostScriptRunning;
+
+            LocalhostOpenButton.IsEnabled = isStartedWSL;
+            LocalhostOpenIcon.Opacity = isStartedWSL ? 1 : 0.5;
+
+            SpaceOpenButton.IsEnabled = isStartedWSL;
+            SpaceOpenIcon.Opacity = isStartedWSL ? 1 : 0.5;
+        }
+
         private void StartLocalhostCommandButton_Click(object sender, RoutedEventArgs e)
         {
-            var stopping = false;
             if (IsStartedWSLCommand)
             {
-                stopping = true;
                 Log("Stopping WSL...");
                 StopWSLCommand();
-                Log("WSL Stopped.", color: Brushes.White);
-                stopping = false;
+                Log("WSL localhost Stopped.", color: Brushes.White);
             }
             else
             {
+                var endOfOutputRegex = new Regex("Proxy to.*listening at");
                 Log("Starting WSL...", color: Brushes.White);
                 var wslCommand = new MIS.WSLCommand(LocalhostCommandTextBox.Text);
                 wslCommand.OutputDataReceived.AddHandler((sender, eventArgs) =>
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        Log(eventArgs.Data, heading: "WSL");
+                        var receivedData = eventArgs.Data;
+                        Log(receivedData, heading: "WSL");
                         CommandLineScrollViewer.ScrollToBottom();
+                        if (receivedData != null && endOfOutputRegex.Match(receivedData).Success)
+                        {
+                            UpdateWSLCommandStatus(localhostScriptRunning: true);
+                        }
                     });
                 });
                 localhostWSLRunningCommand = wslCommand.Start();
             }
-            StartLocalhostCommandIcon.Source = IsStartedWSLCommand ? STOP_ICON : START_ICON;
-            StartLocalhostCommandButton.IsChecked = IsStartedWSLCommand;
+            UpdateWSLCommandStatus();
         }
     }
 }
