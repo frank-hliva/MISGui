@@ -64,6 +64,8 @@ namespace MISGui
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -147,8 +149,16 @@ namespace MISGui
 
         private void StopWSLCommand()
         {
-            localhostWSLRunningCommand.Stop();
-            localhostWSLRunningCommand = null;
+            if (IsStartedWSLCommand)
+            {
+                localhostWSLRunningCommand.Stop();
+                localhostWSLRunningCommand = null;
+            }
+        }
+
+        void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            StopWSLCommand();
         }
 
         public bool IsStartedWSLCommand { get { return localhostWSLRunningCommand != null; } }
