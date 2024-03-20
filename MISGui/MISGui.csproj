@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FSharp.Core" Version="8.0.200" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MISLib\MISLib.fsproj" />
   </ItemGroup>
 

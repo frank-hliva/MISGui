@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="App.fs" />
+    <Compile Include="IBasicStorage.fs" />
+    <Compile Include="RegistrySorage.fs" />
     <Compile Include="WSLCommand.fs" />
     <Compile Include="MISLocations.fs" />
     <Compile Include="Utils.fs" />

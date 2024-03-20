@@ -28,7 +28,7 @@ namespace MISGui
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly App.Context appContext;
+        private readonly MIS.App.Context appContext;
         private readonly IBasicStorage windowStorage;
         private readonly IBasicStorage locationsStorage;
 
@@ -43,7 +43,7 @@ namespace MISGui
             return new BitmapImage(new Uri(uri));
         }
 
-        public MainWindow(App.Context appContext, IBasicStorage windowStorage, IBasicStorage locationsStorage)
+        public MainWindow(MIS.App.Context appContext, IBasicStorage windowStorage, IBasicStorage locationsStorage)
         {
             InitializeComponent();
             this.appContext = appContext;
