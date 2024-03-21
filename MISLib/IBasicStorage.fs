@@ -1,4 +1,4 @@
-﻿namespace MIS
+﻿namespace MIS.Storages
 
 type IBasicStorage =
     abstract member GetValue : key:string -> string

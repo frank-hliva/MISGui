@@ -1,5 +1,7 @@
 ﻿module MIS.App
 
+open Unity
+
 type Context =
     {
         AppName : string
@@ -8,4 +10,9 @@ type Context =
 let createContext appName =
     {
         AppName = appName
+    }
+
+type Config =
+    {
+        LocalhostRoot : string
     }

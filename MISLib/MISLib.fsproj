@@ -9,9 +9,16 @@
     <Compile Include="App.fs" />
     <Compile Include="IBasicStorage.fs" />
     <Compile Include="RegistrySorage.fs" />
+    <Compile Include="Storages.fs" />
+    <Compile Include="Databases.fs" />
     <Compile Include="WSLCommand.fs" />
-    <Compile Include="MISLocations.fs" />
+    <Compile Include="LocationBuilder.fs" />
     <Compile Include="Utils.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.19" />
+    <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 
 </Project>

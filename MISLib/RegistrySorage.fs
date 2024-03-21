@@ -1,5 +1,6 @@
-﻿namespace MIS
+﻿namespace MIS.Storages
 
+open MIS
 open Microsoft.Win32
 open System
 
@@ -32,3 +33,4 @@ type RegistryStorage(appName: string, defaultStore: string) =
         valueKey.SetValue(key, value)
         valueKey.Close()
         appKey.Close()
+    
